@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.entity.User">
+        <id column="user_id" property="userId" />
+        <result column="avatar" property="avatar" />
+        <result column="account" property="account" />
+        <result column="password" property="password" />
+        <result column="salt" property="salt" />
+        <result column="name" property="name" />
+        <result column="birthday" property="birthday" />
+        <result column="sex" property="sex" />
+        <result column="email" property="email" />
+        <result column="phone" property="phone" />
+        <result column="role_id" property="roleId" />
+        <result column="dept_id" property="deptId" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="version" property="version" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id AS "userId", avatar AS "avatar", account AS "account", salt AS "salt", name AS "name", birthday AS "birthday", sex AS "sex", email AS "email", phone AS "phone", role_id AS "roleId", dept_id AS "deptId", status AS "status", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser", version AS "version",plaza_id as "plazaId",plaza_admin as "plazaAdmin"
+    </sql>
+
+    <sql id="Base_Column_List_With_Pwd">
+		 user_id AS "userId", avatar AS "avatar", account AS "account", salt AS "salt", password AS "password", name AS "name", birthday AS "birthday", sex AS "sex", email AS "email", phone AS "phone", role_id AS "roleId", dept_id AS "deptId", status AS "status", create_time AS "createTime", create_user AS "createUser", update_time AS "updateTime", update_user AS "updateUser", version AS "version",plaza_id as "plazaId",plaza_admin as "plazaAdmin"
+	</sql>
+
+    <select id="selectUsers" resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where status != 'DELETED'
+        <if test="name != null and name != ''">
+            and (phone like CONCAT('%',#{name},'%')
+            or account like CONCAT('%',#{name},'%')
+            or name like CONCAT('%',#{name},'%'))
+        </if>
+        <if test="plazaId != null and plazaId != 0">
+            and plaza_id = #{plazaId}
+        </if>
+        <if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+            and (create_time between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+        </if>
+    </select>
+
+    <update id="setStatus">
+		update sys_user set status = #{status} where user_id = #{userId}
+	</update>
+
+    <update id="changePwd">
+		update sys_user set password = #{pwd} where user_id = #{userId}
+	</update>
+
+    <update id="setRoles">
+		update sys_user set role_id = #{roleIds} where user_id =
+		#{userId}
+	</update>
+
+    <select id="getByAccount" resultType="cn.stylefeng.guns.modular.system.entity.User">
+        select
+        <include refid="Base_Column_List_With_Pwd"/>
+        from sys_user where account = #{account} and status != 'DELETED'
+    </select>
+
+    <select id="getByPhone" resultType="cn.stylefeng.guns.modular.system.entity.User">
+        select
+        <include refid="Base_Column_List_With_Pwd"/>
+        from sys_user where phone = #{phone} and status != 'DELETED'
+    </select>
+
+    <select id="eixtPhone" resultType="cn.stylefeng.guns.modular.system.entity.User">
+        select
+        <include refid="Base_Column_List_With_Pwd"/>
+        from sys_user
+        where phone = #{user.phone}
+        <if test="user.userId!=null and user.userId!=''">
+        and user_id <![CDATA[ <> ]]>  #{user.userId}
+        </if>
+    </select>
+    
+    <select id="getMenuIdsByUserId" resultType="long">
+        select menu_id as menuId from sys_user_menu where user_id = #{userId}
+    </select>
+
+
+    <select id="menuTreeList" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode" parameterType="string">
+        SELECT
+        m1.menu_id AS id,
+        (
+        CASE
+        WHEN (m2.menu_id = 0 OR m2.menu_id IS NULL) THEN
+        0
+        ELSE
+        m2.menu_id
+        END
+        ) AS pId,
+        m1.name
+        AS name,
+        (
+        CASE
+        WHEN (m2.menu_id = 0 OR m2.menu_id IS NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as "open"
+        FROM
+        sys_menu m1
+        inner join sys_relation re on m1.menu_id = re.menu_id
+        inner join sys_role r on r.role_id = re.role_id and r.description = #{roleDesc}
+        LEFT join sys_menu m2 ON m1.pcode = m2.code
+        ORDER BY
+        m1.menu_id ASC
+    </select>
+
+    <select id="menuTreeListByMenuIds" resultType="cn.stylefeng.guns.core.common.node.ZTreeNode">
+        SELECT
+        m1.menu_id AS id,
+        (
+        CASE
+        WHEN (m2.menu_id = 0 OR m2.menu_id IS NULL) THEN
+        0
+        ELSE
+        m2.menu_id
+        END
+        ) AS "pId",
+        m1.name AS name,
+        (
+        CASE
+        WHEN (m2.menu_id = 0 OR m2.menu_id IS
+        NULL) THEN
+        'true'
+        ELSE
+        'false'
+        END
+        ) as "open",
+        (
+        CASE
+        WHEN (m3.menu_id = 0 OR m3.menu_id
+        IS NULL) THEN
+        'false'
+        ELSE
+        'true'
+        END
+        ) as "checked"
+        FROM
+        sys_menu m1
+        inner join sys_relation re on m1.menu_id = re.menu_id
+        inner join sys_role r on r.role_id = re.role_id and r.description = #{roleDesc}
+        LEFT JOIN
+        sys_menu m2
+        ON m1.pcode = m2.code
+        left join (
+        SELECT
+        menu_id
+        FROM
+        sys_menu
+        WHERE
+        menu_id IN
+        <foreach collection="list" index="index" item="i" open="("
+                 separator="," close=")">
+            #{i}
+        </foreach>
+        ) m3 on m1.menu_id = m3.menu_id
+        ORDER BY
+        m1.menu_id ASC
+    </select>
+
+
+    <delete id="deleteMenuIdsByUserId" parameterType="long">
+        delete from sys_user_menu where user_id = #{userId}
+    </delete>
+    
+    <insert id="batchSaveUserMenu" >
+        insert into sys_user_menu(
+          user_id,
+          menu_id
+        )values
+        <foreach collection="list" index="index" item="item" separator="," >
+            (#{item.userId},#{item.menuId})
+        </foreach>
+
+    </insert>
+</mapper>
