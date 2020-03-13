@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.shuheng.mapper.SchoolMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.shuheng.entity.School">
+        <id column="school_id" property="schoolId" />
+        <result column="school_name" property="schoolName" />
+        <result column="school_tel" property="schoolTel" />
+        <result column="school_addres" property="schoolAddres" />
+        <result column="school_desc" property="schoolDesc" />
+        <result column="school_img" property="schoolImg" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        school_id as schoolId, school_name as schoolName, school_tel as schoolTel, school_addres as schoolAddres, school_desc as schoolDesc, update_time as updateTime
+    </sql>
+
+
+    <select id="selectSchool" resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from m_school
+        where 1=1
+        <if test="schoolName != null and schoolName != ''">
+            and school_name like CONCAT('%',#{schoolName},'%')
+        </if>
+        <if test="schoolId != null and schoolId != ''">
+            and school_id = #{schoolId}
+        </if>
+    </select>
+</mapper>

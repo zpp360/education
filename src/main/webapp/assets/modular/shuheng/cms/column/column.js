@@ -17,21 +17,21 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         condition: {
             columnId: "",
             columnName: "",
-            plazaId: ""
+            schoolId: ""
         }
     };
 
-    //渲染纪念馆下拉框
-    var ajax = new $ax(Feng.ctxPath + "/plaza/selectPlaza", function (data) {
-        $("#plazaId").append(data)
+    //渲染学校下拉框
+    var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+        $("#schoolId").append(data)
     })
     ajax.start();
     form.render('select');
 
-    Column.condition.plazaId = $("#plazaId").val()
+    Column.condition.schoolId = $("#schoolId").val()
     //
-    // form.on('select(plazaId)',function () {
-    //     Column.condition.plazaId = $("#plazaId").val()
+    // form.on('select(schoolId)',function () {
+    //     Column.condition.schoolId = $("#schoolId").val()
     // })
 
     /**
@@ -42,7 +42,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
             {type: 'numbers'},
             {field: 'columnId', hide: true, title: ''},
             {field: 'columnName', sort: false, title: '栏目名称'},
-            {field: 'plazaName', sort: false, title: '纪念馆'},
+            {field: 'schoolName', sort: false, title: '学校'},
             {field: 'parentName', sort: false, title: '父栏目'},
             {field: 'imgWidth', sort: false, title: '图片宽度'},
             {field: 'imgHeight', sort: false, title: '图片高度'},
@@ -97,7 +97,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         top.layui.admin.open({
             type: 2,
             title: '添加',
-            content: Feng.ctxPath + '/column/column_add?plazaId='+Column.condition.plazaId,
+            content: Feng.ctxPath + '/column/column_add?schoolId='+Column.condition.schoolId,
             end: function () {
                 admin.getTempData('formOk') && Column.initTable(Column.tableId,Column.condition);
             }
@@ -109,7 +109,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
         top.layui.admin.open({
             type: 2,
             title: '编辑菜单',
-            content: Feng.ctxPath + '/column/column_edit?columnId=' + data.columnId + "&plazaId="+Column.condition.plazaId,
+            content: Feng.ctxPath + '/column/column_edit?columnId=' + data.columnId + "&schoolId="+Column.condition.schoolId,
             end: function () {
                 admin.getTempData('formOk') && Column.initTable(Column.tableId,Column.condition);
             }
@@ -119,7 +119,7 @@ layui.use(['layer', 'form', 'ztree', 'laydate', 'admin', 'ax', 'table', 'treetab
     Column.search = function () {
         var queryData = {};
         queryData['columnName'] = $("#columnName").val();
-        queryData['plazaId'] = $("#plazaId").val()
+        queryData['schoolId'] = $("#schoolId").val()
         Column.initTable(Column.tableId,  queryData);
     }
 

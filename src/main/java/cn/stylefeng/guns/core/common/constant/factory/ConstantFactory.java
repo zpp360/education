@@ -22,21 +22,15 @@ import cn.stylefeng.guns.core.common.constant.cache.CacheKey;
 import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.common.constant.state.MenuStatus;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
-import cn.stylefeng.guns.modular.shenjiang.entity.Floor;
-import cn.stylefeng.guns.modular.shenjiang.entity.Machine;
-import cn.stylefeng.guns.modular.shenjiang.mapper.FloorMapper;
-import cn.stylefeng.guns.modular.shenjiang.mapper.MachineMapper;
-import cn.stylefeng.guns.modular.shenjiang.service.FloorService;
 import cn.stylefeng.guns.modular.shuheng.entity.Column;
-import cn.stylefeng.guns.modular.shuheng.entity.Plaza;
+import cn.stylefeng.guns.modular.shuheng.entity.School;
 import cn.stylefeng.guns.modular.shuheng.mapper.ColumnMapper;
-import cn.stylefeng.guns.modular.shuheng.mapper.PlazaMapper;
+import cn.stylefeng.guns.modular.shuheng.mapper.SchoolMapper;
 import cn.stylefeng.guns.modular.system.entity.*;
 import cn.stylefeng.guns.modular.system.mapper.*;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -62,11 +56,8 @@ public class ConstantFactory implements IConstantFactory {
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
 
-    private FloorMapper floorMapper = SpringContextHolder.getBean(FloorMapper.class);
-    private MachineMapper machineMapper = SpringContextHolder.getBean(MachineMapper.class);
 
-
-    private PlazaMapper plazaMapper = SpringContextHolder.getBean(PlazaMapper.class);
+    private SchoolMapper schoolMapper = SpringContextHolder.getBean(SchoolMapper.class);
     private ColumnMapper columnMapper = SpringContextHolder.getBean(ColumnMapper.class);
 
 
@@ -349,38 +340,14 @@ public class ConstantFactory implements IConstantFactory {
 
 
     @Override
-    public String getFloorName(String floorId){
-        if(StringUtils.isEmpty(floorId)){
-            return "";
-        }
-        Floor floor = floorMapper.selectById(floorId);
-        if(floor == null){
-            return "";
-        }
-        return floor.getFloorName();
-    }
-
-    @Override
-    public String getMachineName(String machineId) {
-        if(StringUtils.isEmpty(machineId)){
-            return "";
-        }
-        Machine machine = machineMapper.selectById(machineId);
-        if(machine == null){
-            return "";
-        }
-        return machine.getMachineName();
-    }
-
-    @Override
-    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.PLAZA_NAME + "'+#plazaId")
-    public Object getPlazaName(Long plazaId) {
-        if (plazaId == null) {
+    @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.PLAZA_NAME + "'+#schoolId")
+    public Object getSchoolName(Long schoolId) {
+        if (schoolId == null) {
             return "";
         } else {
-            Plaza plaza = plazaMapper.selectById(plazaId);
-            if (ToolUtil.isNotEmpty(plaza) && ToolUtil.isNotEmpty(plaza.getPlazaName())) {
-                return plaza.getPlazaName();
+            School school = schoolMapper.selectById(schoolId);
+            if (ToolUtil.isNotEmpty(school) && ToolUtil.isNotEmpty(school.getSchoolName())) {
+                return school.getSchoolName();
             }
             return "";
         }

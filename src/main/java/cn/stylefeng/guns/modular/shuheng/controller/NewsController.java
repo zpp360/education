@@ -8,9 +8,9 @@ import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.util.FileUtil;
 import cn.stylefeng.guns.modular.shuheng.entity.News;
-import cn.stylefeng.guns.modular.shuheng.entity.Plaza;
+import cn.stylefeng.guns.modular.shuheng.entity.School;
 import cn.stylefeng.guns.modular.shuheng.service.NewsService;
-import cn.stylefeng.guns.modular.shuheng.service.PlazaService;
+import cn.stylefeng.guns.modular.shuheng.service.SchoolService;
 import cn.stylefeng.guns.modular.shuheng.warpper.NewsWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
@@ -52,7 +52,7 @@ public class NewsController extends BaseController {
    private NewsService  newsService;
 
    @Autowired
-   private PlazaService plazaService;
+   private SchoolService schoolService;
 
    @RequestMapping("")
    public String index(){
@@ -85,9 +85,9 @@ public class NewsController extends BaseController {
       if(ToolUtil.isEmpty(news.getReleaseTime())){
          news.setReleaseTime(new Date());
       }
-      if(ToolUtil.isEmpty(news.getNewsSource()) && user.isPlazaAdmin()){
-         Plaza plaza = plazaService.getById(user.getPlazaId());
-         news.setNewsSource(plaza.getPlazaName());
+      if(ToolUtil.isEmpty(news.getNewsSource()) && user.isSchoolAdmin()){
+         School school = schoolService.getById(user.getSchoolId());
+         news.setNewsSource(school.getSchoolName());
       }
 
       setDigest(news);

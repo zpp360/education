@@ -19,12 +19,12 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
 
     // 点击父级菜单
     $('#parentName').click(function () {
-        var plazaId = $("#plazaId").val()
+        var schoolId = $("#schoolId").val()
         var formName = encodeURIComponent("parent.ColumnInfoDlg.data.parentName");
         var formId = encodeURIComponent("parent.ColumnInfoDlg.data.parentId");
         var treeUrl;
-        if(plazaId!=null && plazaId!=""){
-            treeUrl = encodeURIComponent("/column/selectColumnTreeList?plazaId="+plazaId);
+        if(schoolId!=null && schoolId!=""){
+            treeUrl = encodeURIComponent("/column/selectColumnTreeList?schoolId="+schoolId);
         }else{
             treeUrl = encodeURIComponent("/column/selectColumnTreeList");
         }
@@ -43,9 +43,9 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
         });
     });
 
-    //查询所有纪念馆
-    var ajax = new $ax(Feng.ctxPath + "/plaza/selectPlaza", function (data) {
-        $("#plazaId").append(data)
+    //查询所有学校
+    var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+        $("#schoolId").append(data)
     })
     ajax.start();
     //重新渲染select
@@ -55,14 +55,6 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
     var result = ajax.start();
     form.val('columnForm', result.data);
 
-
-    //查询所有纪念馆
-    var ajax = new $ax(Feng.ctxPath + "/plaza/selectPlaza", function (data) {
-        $("#plazaId").append(data)
-    })
-    ajax.start();
-    //重新渲染select
-    form.render('select');
 
     // 添加表单验证方法
     form.verify({

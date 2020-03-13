@@ -15,7 +15,6 @@
  */
 package cn.stylefeng.guns.core.shiro;
 
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -76,22 +75,22 @@ public class ShiroUser implements Serializable {
     private List<String> roleNames;
 
     /**
-     * 纪念馆Id
+     * 学校Id
      */
-    private Long plazaId;
+    private Long schoolId;
 
     /**
-     * 是否是纪念馆管理员
+     * 是否是学校管理员
      */
-    private boolean isPlazaAdmin;
+    private boolean isSchoolAdmin;
 
 
-    public boolean isPlazaAdmin() {
-        return isPlazaAdmin;
+    public boolean isSchoolAdmin() {
+        return isSchoolAdmin;
     }
 
-    public void setPlazaAdmin(boolean plazaAdmin) {
-        isPlazaAdmin = plazaAdmin;
+    public void setSchoolAdmin(boolean schoolAdmin) {
+        isSchoolAdmin = schoolAdmin;
     }
 
     public Long getId() {
@@ -166,11 +165,11 @@ public class ShiroUser implements Serializable {
         this.roleNames = roleNames;
     }
 
-    public Long getPlazaId() {
-        return plazaId;
+    public Long getSchoolId() {
+        return schoolId;
     }
 
-    public void setPlazaId(Long plazaId) {
-        this.plazaId = plazaId;
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 }

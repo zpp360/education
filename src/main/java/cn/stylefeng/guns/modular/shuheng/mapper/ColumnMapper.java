@@ -25,15 +25,15 @@ public interface ColumnMapper extends BaseMapper<Column> {
      * 栏目树
      * @return
      */
-    List<ZTreeNode> columnTreeList(@Param("plazaId") Long plazaId);
+    List<ZTreeNode> columnTreeList(@Param("schoolId") Long schoolId);
 
     /**
      * 栏目layuitree
      * @param columnName
-     * @param plazaId
+     * @param schoolId
      * @return
      */
-    List<Map<String,Object>> selectColumnTree(@Param("columnName") String columnName, @Param("plazaId") Long plazaId);
+    List<Map<String,Object>> selectColumnTree(@Param("columnName") String columnName, @Param("schoolId") Long schoolId);
 
     /**
      * 栏目详情

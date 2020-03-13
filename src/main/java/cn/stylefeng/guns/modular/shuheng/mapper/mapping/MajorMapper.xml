@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.shuheng.mapper.MajorMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.shuheng.entity.Major">
+        <id column="major_id" property="majorId" />
+        <result column="school_id" property="schoolId" />
+        <result column="college_id" property="collegeId" />
+        <result column="major_name" property="majorName" />
+        <result column="major_img" property="majorImg" />
+        <result column="major_desc" property="majorDesc" />
+        <result column="sort" property="sort" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        major_id as majorId,
+        school_id as schoolId,
+        college_id as collegeId,
+        major_name as majorName,
+        major_img as majorImg,
+        major_desc as majorDesc,
+        sort as sort,
+        del_flag as delFlag,
+        create_user as createUser,
+        create_time as createTime,
+        update_user as updateUser,
+        update_time as updateTime
+    </sql>
+
+
+    <select id="selectMajor" resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from m_major
+        where 1=1
+        <if test="majorName != null and majorName != ''">
+            and major_name like CONCAT('%',#{majorName},'%')
+        </if>
+    </select>
+</mapper>

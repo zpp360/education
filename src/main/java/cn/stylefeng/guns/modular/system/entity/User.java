@@ -91,13 +91,13 @@ public class User implements Serializable {
     private Long deptId;
 
     /**
-     * 纪念馆id
+     * 学校id
      */
-    @TableField(value = "plaza_id",strategy = FieldStrategy.IGNORED)
-    private Long plazaId;
+    @TableField(value = "school_id",strategy = FieldStrategy.IGNORED)
+    private Long schoolId;
 
-    @TableField(value = "plaza_admin")
-    private boolean plazaAdmin;
+    @TableField(value = "school_admin")
+    private boolean schoolAdmin;
 
     /**
      * 状态(字典)
@@ -280,20 +280,20 @@ public class User implements Serializable {
         this.version = version;
     }
 
-    public Long getPlazaId() {
-        return plazaId;
+    public Long getSchoolId() {
+        return schoolId;
     }
 
-    public void setPlazaId(Long plazaId) {
-        this.plazaId = plazaId;
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 
-    public boolean isPlazaAdmin() {
-        return plazaAdmin;
+    public boolean isSchoolAdmin() {
+        return schoolAdmin;
     }
 
-    public void setPlazaAdmin(boolean plazaAdmin) {
-        this.plazaAdmin = plazaAdmin;
+    public void setSchoolAdmin(boolean schoolAdmin) {
+        this.schoolAdmin = schoolAdmin;
     }
 
     @Override

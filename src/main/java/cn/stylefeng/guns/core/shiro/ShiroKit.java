@@ -296,15 +296,15 @@ public class ShiroKit {
     }
 
     /**
-     * 纪念馆管理员
+     * 学校管理员
      * @return
      */
-    public static boolean isPlazaAdmin(){
-        return getUser().isPlazaAdmin();
+    public static boolean isSchoolAdmin(){
+        return getUser().isSchoolAdmin();
     }
 
     /**
-     * 判断当前用户是否是普通管理员，管理纪念馆数据（非超级管理员，只是普通管理员）
+     * 判断当前用户是否是普通管理员，管理学校数据（非超级管理员，只是普通管理员）
      */
     public static boolean isGeneral() {
         List<Long> roleList = ShiroKit.getUser().getRoleList();
@@ -341,8 +341,8 @@ public class ShiroKit {
         shiroUser.setName(user.getName());
         shiroUser.setEmail(user.getEmail());
         shiroUser.setAvatar(user.getAvatar());
-        shiroUser.setPlazaId(user.getPlazaId());
-        shiroUser.setPlazaAdmin(user.isPlazaAdmin());
+        shiroUser.setSchoolId(user.getSchoolId());
+        shiroUser.setSchoolAdmin(user.isSchoolAdmin());
 
         return shiroUser;
     }

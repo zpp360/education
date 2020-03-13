@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.shuheng.mapper.CollegeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.shuheng.entity.College">
+        <id column="college_id" property="collegeId" />
+        <result column="school_id" property="schoolId" />
+        <result column="college_name" property="collegeName" />
+        <result column="college_img" property="collegeImg" />
+        <result column="college_desc" property="collegeDesc" />
+        <result column="sort" property="sort" />
+        <result column="del_flag" property="delFlag" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        college_id as collegeId,
+        school_id as schoolId,
+        college_name as collegeName,
+        college_img as collegeImg,
+        college_desc as collegeDesc,
+        sort as sort,
+        del_flag as delFlag,
+        create_user as createUser,
+        create_time as createTime,
+        update_user as updateUser,
+        update_time as updateTime
+    </sql>
+
+
+    <select id="selectCollege" resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from m_college
+        where 1=1
+        <if test="collegeName != null and collegeName != ''">
+            and college_name like CONCAT('%',#{collegeName},'%')
+        </if>
+        order by sort asc
+    </select>
+</mapper>

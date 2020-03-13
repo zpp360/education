@@ -13,7 +13,8 @@
                         <div class="layui-form-item">
                             @if(shiro.hasRole("administrator")){
                             <div class="layui-inline">
-                                <select id="plazaId" lay-filter="plazaId" name="plazaId" lay-verify="">
+                                <select id="schoolId" lay-filter="schoolId" name="schoolId" lay-verify="">
+                                    <option value="">-----请选择学校-----</option>
                                 </select>
                             </div>
                             @}

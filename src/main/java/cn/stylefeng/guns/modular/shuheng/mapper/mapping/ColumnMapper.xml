@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.shuheng.entity.Column">
         <id column="column_id" property="columnId" />
         <result column="column_name" property="columnName" />
-        <result column="plaza_id" property="plazaId" />
+        <result column="school_id" property="schoolId" />
         <result column="level" property="level" />
         <result column="parent_id" property="parentId" />
         <result column="del_flag" property="delFlag" />
@@ -25,7 +25,7 @@
     <sql id="Base_Column_List">
         column_id as columnId,
         column_name as columnName,
-        plaza_id as plazaId,
+        school_id as schoolId,
         level as level,
         parent_id as parentId,
         img_width as imgWidth,
@@ -70,8 +70,8 @@
         m_column m1
         LEFT join m_column p ON m1.parent_id = p.column_id
         where m1.del_flag = 'N'
-        <if test="plazaId!=null and plazaId!=''">
-        and m1.plaza_id = #{plazaId}
+        <if test="schoolId!=null and schoolId!=''">
+        and m1.school_id = #{schoolId}
         </if>
         ORDER BY
         m1.sort ASC
@@ -85,8 +85,8 @@
         <if test="columnName != null and columnName != ''">
             and column_name like CONCAT('%',#{columnName},'%')
         </if>
-        <if test="plazaId != null and plazaId != ''">
-            and plaza_id = #{plazaId}
+        <if test="schoolId != null and schoolId != ''">
+            and school_id = #{schoolId}
         </if>
         order by sort asc
     </select>
@@ -95,7 +95,7 @@
         select
             t.column_id as columnId,
             t.column_name as columnName,
-            t.plaza_id as plazaId,
+            t.school_id as schoolId,
             t.level as level,
             t.parent_id as parentId,
             t.img_width as imgWidth,

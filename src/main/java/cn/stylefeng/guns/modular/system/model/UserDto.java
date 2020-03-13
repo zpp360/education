@@ -41,7 +41,7 @@ public class UserDto {
     private String status;
     private String avatar;
 
-    private Long plazaId;
+    private Long schoolId;
 
     private String roleId;
 
@@ -53,12 +53,12 @@ public class UserDto {
         this.roleId = roleId;
     }
 
-    public Long getPlazaId() {
-        return plazaId;
+    public Long getSchoolId() {
+        return schoolId;
     }
 
-    public void setPlazaId(Long plazaId) {
-        this.plazaId = plazaId;
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Long getUserId() {

@@ -1,0 +1,58 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/shuheng/college/college_add.js"]}){
+<style type="text/css">
+
+</style>
+
+<form id="collegeForm" lay-filter="collegeForm" class="layui-form model-form" style="max-width: 700px;">
+
+        <input type="hidden" name="collegeId"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学院名称<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <input id="collegeName" name="collegeName" maxlength="30" placeholder="请输入学院名称" type="text" class="layui-input"
+                       lay-verify="required" required/>
+            </div>
+        </div>
+        @if(shiro.hasRole("administrator")){
+        <div class="layui-form-item">
+            <label class="layui-form-label">学校<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <select id="schoolId" name="schoolId" lay-verify="">
+                    <option value="">请选择学校</option>
+                </select>
+            </div>
+        </div>
+        @}
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <input id="sort" name="sort" placeholder="请输入排序号码" style="width:130px" maxlength="3" type="number" value="0" class="layui-input" lay-verify="sort">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="uploadImg">上传图片</button>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="imgShow">
+                    <p id="imgText"></p>
+                </div>
+            </div>
+            <input type="hidden" id="collegeImg" name="collegeImg" placeholder="" type="text" class="layui-input" lay-verify="" />
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">学院简介</label>
+            <div class="layui-input-block">
+                <textarea id="collegeDesc" name="collegeDesc" maxlength="500" placeholder="请输入学院简介" type="text" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog" id="backupPage">返回</button>
+    </div>
+</form>
+
+
+@}

@@ -34,7 +34,7 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 根据条件查询用户列表
      */
-    Page<Map<String, Object>> selectUsers(@Param("page") Page page, @Param("dataScope") DataScope dataScope, @Param("name") String name, @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("plazaId") Long plazaId);
+    Page<Map<String, Object>> selectUsers(@Param("page") Page page, @Param("dataScope") DataScope dataScope, @Param("name") String name, @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("schoolId") Long schoolId);
 
     /**
      * 设置用户的角色

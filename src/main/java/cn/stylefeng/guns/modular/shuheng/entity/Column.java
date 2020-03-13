@@ -28,10 +28,10 @@ public class Column implements Serializable {
     private String columnName;
 
     /**
-     * 纪念馆
+     * 学校
      */
-    @TableField("plaza_id")
-    private Long plazaId;
+    @TableField("school_id")
+    private Long schoolId;
 
     /**
      * 层级
@@ -122,12 +122,12 @@ public class Column implements Serializable {
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
-    public Long getPlazaId() {
-        return plazaId;
+    public Long getSchoolId() {
+        return schoolId;
     }
 
-    public void setPlazaId(Long plazaId) {
-        this.plazaId = plazaId;
+    public void setSchoolId(Long schoolId) {
+        this.schoolId = schoolId;
     }
     public Integer getLevel() {
         return level;
@@ -212,7 +212,7 @@ public class Column implements Serializable {
         return "Column{" +
         "columnId=" + columnId +
         ", columnName=" + columnName +
-        ", plazaId=" + plazaId +
+        ", schoolId=" + schoolId +
         ", level=" + level +
         ", parentId=" + parentId +
         ", delFlag=" + delFlag +

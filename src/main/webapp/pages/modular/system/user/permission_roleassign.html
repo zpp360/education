@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${ctxPath}/assets/common/layui/css/layui.css"/>
     <link href="${ctxPath}/assets/expand/plugins/ztree/zTreeStyle.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-        #plaza{
+        #school{
             display: none;
         }
     </style>
@@ -23,7 +23,7 @@
     <form class="layui-form model-form" style="padding-top: 20px;">
         <div class="layui-form-item">
             <div class="layui-input-block" style="margin-left: 0px;">
-                <input type="checkbox" name="isPlazaAdmin" lay-filter="isPlazaAdmin" title="继承管理员权限">
+                <input type="checkbox" name="isSchoolAdmin" lay-filter="isSchoolAdmin" title="继承管理员权限">
             </div>
             <label style="color: red">选中继承管理员权限，该用户继承管理员所有权限</label>
         </div>
@@ -79,9 +79,9 @@
             });
             ajax.set("userId", "${userId}");
             //判断继承管理员权限是否选中
-            var checked = $("input[name='isPlazaAdmin']").is(":checked");
+            var checked = $("input[name='isSchoolAdmin']").is(":checked");
             if(checked){
-                ajax.set("isPlazaAdmin","1")
+                ajax.set("isSchoolAdmin","1")
                 ajax.set("menuIds","")
             }else{
                 //未选中，获取菜单选中节点
@@ -90,7 +90,7 @@
                     Feng.error("请选择菜单！")
                     return
                 }
-                ajax.set("isPlazaAdmin","0")
+                ajax.set("isSchoolAdmin","0")
                 ajax.set("menuIds",ids)
             }
             ajax.start();
@@ -116,8 +116,8 @@
         ztree.init();
 
         var ajax = new $ax(Feng.ctxPath + "/mgr/getUserInfo", function (data) {
-            if(data.data.plazaAdmin){
-                $("input[name='isPlazaAdmin']").attr("checked","checked")
+            if(data.data.schoolAdmin){
+                $("input[name='isSchoolAdmin']").attr("checked","checked")
                 form.render('checkbox');
                 $("#zTree").hide()
             }
@@ -127,7 +127,7 @@
         ajax.set("userId", "${userId}");
         ajax.start();
 
-        form.on('checkbox(isPlazaAdmin)',function (data) {
+        form.on('checkbox(isSchoolAdmin)',function (data) {
             if($(this).is(":checked")){
                 //继承管理员权限
                 $("#zTree").hide()

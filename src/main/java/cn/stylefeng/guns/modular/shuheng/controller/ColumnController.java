@@ -67,11 +67,11 @@ public class ColumnController extends BaseController {
    @RequestMapping(value = "/listTree")
    @ResponseBody
    public Object listTree(@RequestParam(required = false) String columnName,
-                          @RequestParam(required = false) Long plazaId){
+                          @RequestParam(required = false) Long schoolId){
       if(ShiroKit.isGeneral()){
-         plazaId = ShiroKit.getUser().getPlazaId();
+         schoolId = ShiroKit.getUser().getSchoolId();
       }
-      List<Map<String,Object>> columns = this.columnService.selectColumnTree(columnName,plazaId);
+      List<Map<String,Object>> columns = this.columnService.selectColumnTree(columnName,schoolId);
       List<Map<String,Object>> columnWarp = new ColumnWrapper(columns).wrap();
 
       LayuiPageInfo result = new LayuiPageInfo();
@@ -92,8 +92,8 @@ public class ColumnController extends BaseController {
          throw new RequestEmptyException();
       }
       if(ShiroKit.isGeneral()){
-         //纪念馆管理员创建栏目设置plazaId
-         column.setPlazaId(ShiroKit.getUser().getPlazaId());
+         //学校管理员创建栏目设置schoolId
+         column.setSchoolId(ShiroKit.getUser().getSchoolId());
       }
       this.columnService.save(column);
       //更新column_path
@@ -142,8 +142,8 @@ public class ColumnController extends BaseController {
          throw new RequestEmptyException();
       }
       if(ShiroKit.isGeneral()){
-         //纪念馆管理员创建栏目设置plazaId
-         column.setPlazaId(ShiroKit.getUser().getPlazaId());
+         //学校管理员创建栏目设置schoolId
+         column.setSchoolId(ShiroKit.getUser().getSchoolId());
       }
       //更新column_path
       Long columnId = column.getColumnId();
@@ -230,12 +230,12 @@ public class ColumnController extends BaseController {
     */
    @RequestMapping(value = "/selectColumnTreeList")
    @ResponseBody
-   public List<ZTreeNode> selectColumnTreeList(@RequestParam(value = "plazaId",required = false) Long plazaId) {
+   public List<ZTreeNode> selectColumnTreeList(@RequestParam(value = "schoolId",required = false) Long schoolId) {
       if(ShiroKit.isGeneral()){
-         plazaId = ShiroKit.getUser().getPlazaId();
+         schoolId = ShiroKit.getUser().getSchoolId();
       }
 
-      List<ZTreeNode> columnTreeList = this.columnService.columnTreeList(plazaId);
+      List<ZTreeNode> columnTreeList = this.columnService.columnTreeList(schoolId);
       columnTreeList.add(ZTreeNode.createParent());
       return columnTreeList;
    }

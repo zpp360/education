@@ -153,9 +153,9 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @author fengshuonan
      * @Date 2018/12/24 22:45
      */
-    public Page<Map<String, Object>> selectUsers(DataScope dataScope, String name, String beginTime, String endTime, Long plazaId) {
+    public Page<Map<String, Object>> selectUsers(DataScope dataScope, String name, String beginTime, String endTime, Long schoolId) {
         Page page = LayuiPageFactory.defaultPage();
-        return this.baseMapper.selectUsers(page, dataScope, name, beginTime, endTime, plazaId);
+        return this.baseMapper.selectUsers(page, dataScope, name, beginTime, endTime, schoolId);
     }
 
     /**
@@ -185,7 +185,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @Date 2018/12/24 22:46
      */
     public List<MenuNode> getUserMenuNodes(List<Long> roleList) {
-        if(ShiroKit.isGeneral() && !ShiroKit.isPlazaAdmin()){
+        if(ShiroKit.isGeneral() && !ShiroKit.isSchoolAdmin()){
             //场馆自定义权限的管理员
             List<MenuNode> menus = menuService.getMenusByUserId(ShiroKit.getUser().getId());
             List<MenuNode> titles = MenuNode.buildTitle(menus);
@@ -211,7 +211,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
         if (ShiroKit.isAdmin()) {
             return;
         }
-        //普通管理员，纪念馆的总管理员
+        //普通管理员，学校的总管理员
         if(ShiroKit.isGeneral()){
             return;
         } else {
@@ -236,14 +236,14 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     }
 
     /**
-     * 设置用户管理的纪念馆id
+     * 设置用户管理的学校id
      * @param userId
-     * @param plazaId
+     * @param schoolId
      */
-    public void updateUserPlaza(Long userId, Long plazaId) {
+    public void updateUserSchool(Long userId, Long schoolId) {
         User user = new User();
         user.setUserId(userId);
-        user.setPlazaId(plazaId);
+        user.setSchoolId(schoolId);
         this.baseMapper.updateById(user);
     }
 
@@ -285,7 +285,7 @@ public class UserService extends ServiceImpl<UserMapper, User> {
      * @param menuIds
      */
     public void setPermission(User user, String menuIds) {
-        //先设置plaza_id
+        //先设置school_id
         this.baseMapper.updateById(user);
         //删除用户权限
         this.baseMapper.deleteMenuIdsByUserId(user.getUserId());

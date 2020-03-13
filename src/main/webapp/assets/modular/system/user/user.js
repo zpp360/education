@@ -14,7 +14,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
         tableId: "userTable",    //表格id
         condition: {
             name: "",
-            plazaId: "",
+            schoolId: "",
             timeLimit: ""
         }
     };
@@ -31,7 +31,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
             {field: 'phone', sort: true, title: '电话'},
             {field: 'sexName', sort: true, title: '性别'},
             {field: 'roleName', sort: true, title: '角色'},
-            {field: 'plazaName', sort: true, title: '纪念馆'},
+            {field: 'schoolName', sort: true, title: '学校'},
             // {field: 'email', sort: true, title: '邮箱'},
             {field: 'createTime', sort: true, title: '创建时间'},
             {field: 'status', sort: true, templet: '#statusTpl', title: '状态'},
@@ -43,7 +43,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      * 选择部门时
      */
     // MgrUser.onClickDept = function (e, treeId, treeNode) {
-    //     MgrUser.condition.plazaId = treeNode.id;
+    //     MgrUser.condition.schoolId = treeNode.id;
     //     MgrUser.search();
     // };
 
@@ -52,7 +52,7 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
      */
     MgrUser.search = function () {
         var queryData = {};
-        queryData['plazaId'] = $("#plazaId").val();
+        queryData['schoolId'] = $("#schoolId").val();
         queryData['name'] = $("#name").val();
         queryData['timeLimit'] = $("#timeLimit").val();
         table.reload(MgrUser.tableId, {where: queryData});
@@ -216,9 +216,9 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax'], functio
         max: Feng.currentDate()
     });
 
-    //渲染纪念馆下拉框
-    var ajax = new $ax(Feng.ctxPath + "/plaza/selectPlaza", function (data) {
-        $("#plazaId").append(data)
+    //渲染学校下拉框
+    var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+        $("#schoolId").append(data)
     })
     ajax.start();
     form.render('select');

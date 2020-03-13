@@ -139,26 +139,13 @@ public interface IConstantFactory {
      */
     List<Long> getParentDeptIds(Long deptId);
 
-    /**
-     * 获取楼层名称
-     * @param floorId
-     * @return
-     */
-    String getFloorName(String floorId);
 
     /**
-     * 获取楼层名称
-     * @param machineId
+     * 获取学校名称
+     * @param schoolId
      * @return
      */
-    String getMachineName(String machineId);
-
-    /**
-     * 获取纪念馆名称
-     * @param plazaId
-     * @return
-     */
-    Object getPlazaName(Long plazaId);
+    Object getSchoolName(Long schoolId);
 
     /**
      * 根据id获取

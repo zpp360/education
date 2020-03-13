@@ -33,18 +33,18 @@ public class ColumnService extends ServiceImpl<ColumnMapper,Column> {
      * 栏目树列表
      * @return
      */
-    public List<ZTreeNode> columnTreeList(Long plazaId) {
-        return this.baseMapper.columnTreeList(plazaId);
+    public List<ZTreeNode> columnTreeList(Long schoolId) {
+        return this.baseMapper.columnTreeList(schoolId);
     }
 
     /**
      * 栏目layuitree
      * @param columnName
-     * @param plazaId
+     * @param schoolId
      * @return
      */
-    public List<Map<String,Object>> selectColumnTree(String columnName, Long plazaId) {
-        List<Map<String,Object>> list =  this.baseMapper.selectColumnTree(columnName,plazaId);
+    public List<Map<String,Object>> selectColumnTree(String columnName, Long schoolId) {
+        List<Map<String,Object>> list =  this.baseMapper.selectColumnTree(columnName,schoolId);
         if(list == null){
             list = new ArrayList<>();
         }

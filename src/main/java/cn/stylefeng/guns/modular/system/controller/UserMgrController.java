@@ -187,7 +187,7 @@ public class UserMgrController extends BaseController {
     @ResponseBody
     public Object list(@RequestParam(required = false) String name,
                        @RequestParam(required = false) String timeLimit,
-                       @RequestParam(required = false) Long plazaId) {
+                       @RequestParam(required = false) Long schoolId) {
 
         //拼接查询条件
         String beginTime = "";
@@ -200,13 +200,13 @@ public class UserMgrController extends BaseController {
         }
 
         if (ShiroKit.isAdmin()) {
-            Page<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, plazaId);
+            Page<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, schoolId);
             Page wrapped = new UserWrapper(users).wrap();
             return LayuiPageFactory.createPageInfo(wrapped);
-        } else if(ShiroKit.isGeneral() && ShiroKit.isPlazaAdmin()){
-            //纪念馆管理员
-            plazaId = ShiroKit.getUser().getPlazaId();
-            Page<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, plazaId);
+        } else if(ShiroKit.isGeneral() && ShiroKit.isSchoolAdmin()){
+            //学校管理员
+            schoolId = ShiroKit.getUser().getSchoolId();
+            Page<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, schoolId);
             Page wrapped = new UserWrapper(users).wrap();
             return LayuiPageFactory.createPageInfo(wrapped);
         }else{
@@ -229,9 +229,9 @@ public class UserMgrController extends BaseController {
         if (ToolUtil.isOneEmpty(user,user.getName(),user.getPhone(),user.getAccount(),user.getPassword(),user.getSex())) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
-        //普通管理员添加用户只能是自己纪念馆的
+        //普通管理员添加用户只能是自己学校的
         if(ShiroKit.isGeneral()){
-            user.setPlazaId(ShiroKit.getUser().getPlazaId());
+            user.setSchoolId(ShiroKit.getUser().getSchoolId());
             //设置role_id
             QueryWrapper wrapper = new QueryWrapper<Role>();
             wrapper.eq("description",Const.GENERAL_NAME);
@@ -259,8 +259,8 @@ public class UserMgrController extends BaseController {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         ShiroUser shiroUser = ShiroKit.getUser();
-        if(ShiroKit.isGeneral() && !shiroUser.isPlazaAdmin()){
-            //纪念馆管理员没有总权限
+        if(ShiroKit.isGeneral() && !shiroUser.isSchoolAdmin()){
+            //学校管理员没有总权限
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
         this.userService.editUser(user);
@@ -285,8 +285,8 @@ public class UserMgrController extends BaseController {
         if(user.getId().equals(userId)){
             throw new ServiceException(BizExceptionEnum.LIMIT_OPERATE_SELF);
         }
-        if(ShiroKit.isGeneral() && !user.isPlazaAdmin()){
-            //纪念馆管理员没有总权限
+        if(ShiroKit.isGeneral() && !user.isSchoolAdmin()){
+            //学校管理员没有总权限
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
         this.userService.deleteUser(userId);
@@ -324,8 +324,8 @@ public class UserMgrController extends BaseController {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         ShiroUser shiroUser = ShiroKit.getUser();
-        if(ShiroKit.isGeneral() && !shiroUser.isPlazaAdmin()){
-            //纪念馆管理员没有总权限
+        if(ShiroKit.isGeneral() && !shiroUser.isSchoolAdmin()){
+            //学校管理员没有总权限
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
         this.userService.assertAuth(userId);
@@ -361,8 +361,8 @@ public class UserMgrController extends BaseController {
             throw new ServiceException(BizExceptionEnum.LIMIT_OPERATE_SELF);
         }
 
-        if(ShiroKit.isGeneral() && !user.isPlazaAdmin()){
-            //纪念馆管理员没有总权限
+        if(ShiroKit.isGeneral() && !user.isSchoolAdmin()){
+            //学校管理员没有总权限
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
 
@@ -390,8 +390,8 @@ public class UserMgrController extends BaseController {
             throw new ServiceException(BizExceptionEnum.LIMIT_OPERATE_SELF);
         }
 
-        if(ShiroKit.isGeneral() && !user.isPlazaAdmin()){
-            //纪念馆管理员没有总权限
+        if(ShiroKit.isGeneral() && !user.isSchoolAdmin()){
+            //学校管理员没有总权限
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
         this.userService.assertAuth(userId);
@@ -409,7 +409,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "分配角色", key = "userId,roleIds", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public ResponseData setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds, @RequestParam(value = "plazaId",required = false) Long plazaId) {
+    public ResponseData setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds, @RequestParam(value = "schoolId",required = false) Long schoolId) {
         if (ToolUtil.isOneEmpty(userId, roleIds)) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -419,16 +419,16 @@ public class UserMgrController extends BaseController {
         }
         this.userService.assertAuth(userId);
         this.userService.setRoles(userId, roleIds);
-        //保存关联的纪念馆id,设置纪念馆管理员
+        //保存关联的学校id,设置学校管理员
         User user = userService.getById(userId);
-        if(ToolUtil.isNotEmpty(plazaId)){
-            user.setPlazaAdmin(true);
-            user.setPlazaId(plazaId);
+        if(ToolUtil.isNotEmpty(schoolId)){
+            user.setSchoolAdmin(true);
+            user.setSchoolId(schoolId);
             //删除sys_user_menu
             userService.deleteMenuIdsByUserId(userId);
         }else{
-            user.setPlazaAdmin(false);
-            user.setPlazaId(null);
+            user.setSchoolAdmin(false);
+            user.setSchoolId(null);
         }
         this.userService.updateById(user);
         return SUCCESS_TIP;
@@ -457,22 +457,22 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "分配权限", key = "userId,menuIds", dict = UserDict.class)
     @Permission({Const.ADMIN_NAME,Const.GENERAL_NAME})
     @ResponseBody
-    public ResponseData setPermission(@RequestParam("userId") Long userId, @RequestParam(value = "menuIds",required = false) String menuIds, @RequestParam(value = "isPlazaAdmin") Integer isPlazaAdmin){
+    public ResponseData setPermission(@RequestParam("userId") Long userId, @RequestParam(value = "menuIds",required = false) String menuIds, @RequestParam(value = "isSchoolAdmin") Integer isSchoolAdmin){
         ShiroUser shiroUser = ShiroKit.getUser();
-        if (ToolUtil.isOneEmpty(userId,isPlazaAdmin)) {
+        if (ToolUtil.isOneEmpty(userId,isSchoolAdmin)) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         if(userId.equals(shiroUser.getId())){
             //不允许修改自己权限
             throw new ServiceException(BizExceptionEnum.LIMIT_OPERATE_SELF);
         }
-        if(ShiroKit.isGeneral() && !shiroUser.isPlazaAdmin()){
-            //纪念馆管理员但没有总权限
+        if(ShiroKit.isGeneral() && !shiroUser.isSchoolAdmin()){
+            //学校管理员但没有总权限
             throw new ServiceException(BizExceptionEnum.NO_PERMITION);
         }
         User user = this.userService.getById(userId);
-        user.setPlazaId(shiroUser.getPlazaId());
-        if(isPlazaAdmin == 1){
+        user.setSchoolId(shiroUser.getSchoolId());
+        if(isSchoolAdmin == 1){
             //是场馆管理员
             QueryWrapper wrapper = new QueryWrapper<Role>();
             wrapper.eq("description",Const.GENERAL_NAME);
@@ -481,14 +481,14 @@ public class UserMgrController extends BaseController {
                 throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
             }
             user.setRoleId(role.getRoleId().toString());
-            user.setPlazaAdmin(true);
+            user.setSchoolAdmin(true);
             userService.updateById(user);
             //删除sys_user_menu
             userService.deleteMenuIdsByUserId(userId);
         }
-        if(isPlazaAdmin == 0){
+        if(isSchoolAdmin == 0){
             //自定义权限
-            user.setPlazaAdmin(false);
+            user.setSchoolAdmin(false);
             userService.setPermission(user,menuIds);
         }
         return SUCCESS_TIP;

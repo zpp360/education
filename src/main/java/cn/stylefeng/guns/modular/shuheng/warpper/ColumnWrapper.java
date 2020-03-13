@@ -30,6 +30,6 @@ public class ColumnWrapper extends BaseControllerWrapper {
     @Override
     protected void wrapTheMap(Map<String, Object> map) {
         map.put("parentName", ConstantFactory.me().getColumnNameById(DecimalUtil.getLong(map.get("parentId"))));
-        map.put("plazaName", ConstantFactory.me().getPlazaName(DecimalUtil.getLong(map.get("plazaId"))));
+        map.put("schoolName", ConstantFactory.me().getSchoolName(DecimalUtil.getLong(map.get("schoolId"))));
     }
 }

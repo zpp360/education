@@ -11,11 +11,11 @@
     </parent>
 
     <groupId>cn.stylefeng</groupId>
-    <artifactId>guns</artifactId>
+    <artifactId>education</artifactId>
     <version>1.0.0</version>
 
     <name>guns-education</name>
-    <description>guns 的spring boot版本</description>
+    <description>教学管理系统</description>
 
     <packaging>jar</packaging>
 

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="${ctxPath}/assets/common/layui/css/layui.css"/>
     <link href="${ctxPath}/assets/expand/plugins/ztree/zTreeStyle.css" rel="stylesheet" type="text/css"/>
     <style type="text/css">
-        #plaza{
+        #school{
             display: none;
         }
     </style>
@@ -24,11 +24,11 @@
         <ul id="zTree" class="ztree"></ul>
     </div>
     <form id="userForm" lay-filter="userForm" class="layui-form model-form" style="padding-top: 20px;">
-        <div class="layui-form-item" id="plaza">
-            <label class="layui-form-label">纪念馆<span style="color: red;">*</span></label>
+        <div class="layui-form-item" id="school">
+            <label class="layui-form-label">学校<span style="color: red;">*</span></label>
             <div class="layui-input-block">
-                <select id="plazaId" name="plazaId" lay-verify="">
-                    <option value="">请选择纪念馆</option>
+                <select id="schoolId" name="schoolId" lay-verify="">
+                    <option value="">请选择学校</option>
                 </select>
             </div>
         </div>
@@ -76,9 +76,9 @@
             var treeObj = $.fn.zTree.getZTreeObj("zTree");
             var nodes = treeObj.getNodes();
             for(var i=0; i< nodes.length; i++){
-                if(nodes[i].checked && "纪念馆管理员"===nodes[i].name){
-                    if($("#plazaId").val()==null || $("#plazaId").val()==""){
-                        Feng.error("纪念馆管理员请选择纪念馆")
+                if(nodes[i].checked && "学校管理员"===nodes[i].name){
+                    if($("#schoolId").val()==null || $("#schoolId").val()==""){
+                        Feng.error("学校管理员请选择学校")
                         return
                     }
                 }
@@ -93,7 +93,7 @@
             });
             ajax.set("roleIds", ids);
             ajax.set("userId", "${userId}");
-            ajax.set("plazaId",$("#plazaId").val())
+            ajax.set("schoolId",$("#schoolId").val())
             ajax.start();
         });
 
@@ -122,11 +122,11 @@
         var treeObj = $.fn.zTree.getZTreeObj("zTree");
         var nodes = treeObj.getNodes();
         for(var i=0; i< nodes.length; i++){
-            if(nodes[i].checked && "纪念馆管理员"===nodes[i].name){
-                $("#plaza").show()
-                //查询所有纪念馆
-                var ajax = new $ax(Feng.ctxPath + "/plaza/selectPlaza", function (data) {
-                    $("#plazaId").append(data)
+            if(nodes[i].checked && "学校管理员"===nodes[i].name){
+                $("#school").show()
+                //查询所有学校
+                var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+                    $("#schoolId").append(data)
                 })
                 ajax.start();
                 //重新渲染select
@@ -140,20 +140,20 @@
 
 
         function zTreeOnCheck(event,treeId,treeNode){
-            if("纪念馆管理员"===treeNode.name){
+            if("学校管理员"===treeNode.name){
                 if(treeNode.checked){
-                    //纪念馆管理员需要设置纪念馆id,才能来管理纪念馆
-                    $("#plaza").show()
-                    //查询所有纪念馆
-                    var ajax = new $ax(Feng.ctxPath + "/plaza/selectPlaza", function (data) {
-                        $("#plazaId").append(data)
+                    //学校管理员需要设置学校id,才能来管理学校
+                    $("#school").show()
+                    //查询所有学校
+                    var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+                        $("#schoolId").append(data)
                     })
                     ajax.start();
                     //重新渲染select
                     form.render('select');
                 }else{
-                    $("#plazaId option").remove()
-                    $("#plaza").hide()
+                    $("#schoolId option").remove()
+                    $("#school").hide()
                 }
 
 

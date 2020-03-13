@@ -44,8 +44,8 @@ public interface CacheKey {
     String DEPT_NAME = "dept_name_";
 
     /**
-     * 纪念馆名称
+     * 学校名称
      */
-    String PLAZA_NAME = "plaza_name_";
+    String PLAZA_NAME = "school_name_";
 
 }
