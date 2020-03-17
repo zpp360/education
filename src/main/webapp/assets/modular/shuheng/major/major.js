@@ -19,13 +19,9 @@ layui.use(['table', 'ax','admin'], function () {
             {type: 'checkbox'},
             {field: 'majorId', hide: true, title: '专业id'},
             {field: 'schoolId', sort: false, title: '学校'},
-            {field: 'collegeId', sort: false, title: '学院id'},
+            {field: 'collegeId', sort: false, title: '学院'},
             {field: 'majorName', sort: false, title: '专业名称'},
-            {field: 'majorImg', sort: false, title: '图片'},
             {field: 'majorDesc', sort: false, title: '描述'},
-            {field: 'sort', sort: false, title: ''},
-            {field: 'delFlag', sort: false, title: ''},
-            {field: 'updateTime', sort: false, title: ''},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];
     };

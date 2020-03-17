@@ -38,6 +38,14 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
         }
     });
 
+    //查询所有学校
+    var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+        $("#schoolId").append(data)
+    })
+    ajax.start();
+    //重新渲染select
+    form.render('select');
+
     // 让当前iframe弹层高度适应
     admin.iframeAuto();
 
