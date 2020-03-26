@@ -17,7 +17,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">学校<span style="color: red;">*</span></label>
             <div class="layui-input-block">
-                <select id="schoolId" name="schoolId" lay-verify="">
+                <select id="schoolId" name="schoolId" lay-verify="" lay-filter="schoolId">
                     <option value="">请选择学校</option>
                 </select>
             </div>
@@ -32,7 +32,13 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">图片<span style="color: red;">*</span></label>
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <input id="sort" name="sort" placeholder="请输入排序号码" style="width:130px" maxlength="3" type="number" class="layui-input" lay-verify="sort">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="uploadImg">上传图片</button>
                 <div class="layui-upload-list">
@@ -43,19 +49,11 @@
             <input type="hidden" id="majorImg" name="majorImg" placeholder="" type="text" class="layui-input" lay-verify="" />
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">描述<span style="color: red;">*</span></label>
+            <label class="layui-form-label">描述</label>
             <div class="layui-input-block">
-                <input id="majorDesc" name="majorDesc" maxlength="30" placeholder="请输入描述" type="text" class="layui-input"
-                       lay-verify="required" required/>
+                <textarea id="majorDesc" name="majorDesc" maxlength="500" placeholder="请输入专业简介" type="text" class="layui-textarea"></textarea>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">排序<span style="color: red;">*</span></label>
-            <div class="layui-input-block">
-                <input id="sort" name="sort" placeholder="请输入排序号码" style="width:130px" maxlength="3" type="number" class="layui-input" lay-verify="sort">
-            </div>
-        </div>
-
 
 
     <div class="layui-form-item text-right">

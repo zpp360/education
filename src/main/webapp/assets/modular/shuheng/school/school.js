@@ -19,6 +19,7 @@ layui.use(['table', 'ax','admin'], function () {
             {type: 'checkbox'},
             {field: 'schoolId', hide: true, title: 'ID'},
             {field: 'schoolName', sort: false, title: '学校名称'},
+            {field: 'schoolYearName', sort: false, title: '学制',width:100},
             {field: 'schoolTel', sort: false, title: '电话'},
             {field: 'schoolAddres', sort: false, title: '地址'},
             {field: 'schoolDesc', sort: false, title: '学习简介'},

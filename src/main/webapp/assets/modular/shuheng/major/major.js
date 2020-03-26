@@ -18,9 +18,9 @@ layui.use(['table', 'ax','admin'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'majorId', hide: true, title: '专业id'},
-            {field: 'schoolId', sort: false, title: '学校'},
-            {field: 'collegeId', sort: false, title: '学院'},
             {field: 'majorName', sort: false, title: '专业名称'},
+            {field: 'schoolName', sort: false, title: '学校'},
+            {field: 'collegeName', sort: false, title: '学院'},
             {field: 'majorDesc', sort: false, title: '描述'},
             {align: 'center', toolbar: '#tableBar', title: '操作'}
         ]];

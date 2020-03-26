@@ -8,6 +8,7 @@ import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.modular.shuheng.entity.Major;
 import cn.stylefeng.guns.modular.shuheng.service.MajorService;
+import cn.stylefeng.guns.modular.shuheng.warpper.MajorWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
@@ -26,7 +27,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
  * <p>
- *  前端控制器
+ * 专业 前端控制器
  * </p>
  *
  * @author zhengpp
@@ -50,6 +51,7 @@ public class MajorController extends BaseController {
    @ResponseBody
    public Object list(@RequestParam(value = "majorName", required = false) String majorName){
       Page<Map<String,Object>> page = majorService.listMajor(majorName);
+      page = new MajorWrapper(page).wrap();
       return LayuiPageFactory.createPageInfo(page);
    }
 

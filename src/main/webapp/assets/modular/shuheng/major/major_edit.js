@@ -44,8 +44,24 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
     // 让当前iframe弹层高度适应
     admin.iframeAuto();
 
+
     var ajax = new $ax(Feng.ctxPath + "/major/getMajorInfo?majorId=" + Feng.getUrlParam("majorId"));
     var result = ajax.start();
+    //查询所有学校
+    var ajaxSchool = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+        $("#schoolId").append(data)
+    })
+    ajaxSchool.start();
+    //查询学院
+    console.log(result.data)
+    var ajaxCollege = new $ax(Feng.ctxPath + "/college/selectCollege", function (data) {
+        $("#collegeId").append(data)
+    })
+    ajaxCollege.set("schoolId",result.data.schoolId)
+    ajaxCollege.start();
+    //重新渲染select
+    form.render('select');
+
     //回显图片
     if(result.data.majorImg!=""){
         $("#imgShow").attr("src",result.data.majorImg );

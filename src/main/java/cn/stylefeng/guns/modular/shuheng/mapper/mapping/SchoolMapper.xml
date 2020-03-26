@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.shuheng.entity.School">
         <id column="school_id" property="schoolId" />
         <result column="school_name" property="schoolName" />
+        <result column="school_year" property="schoolYear" />
         <result column="school_tel" property="schoolTel" />
         <result column="school_addres" property="schoolAddres" />
         <result column="school_desc" property="schoolDesc" />
@@ -14,7 +15,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        school_id as schoolId, school_name as schoolName, school_tel as schoolTel, school_addres as schoolAddres, school_desc as schoolDesc, update_time as updateTime
+        school_id as schoolId, school_name as schoolName,school_year as schoolYear, school_tel as schoolTel, school_addres as schoolAddres, school_desc as schoolDesc, update_time as updateTime
     </sql>
 
 

@@ -70,4 +70,5 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
         ajax.set(data.field);
         ajax.start();
     });
+
 });

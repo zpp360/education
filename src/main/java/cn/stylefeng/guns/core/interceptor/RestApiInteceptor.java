@@ -21,6 +21,7 @@ import cn.stylefeng.guns.core.util.JwtTokenUtil;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
 import cn.stylefeng.roses.core.util.RenderUtil;
 import io.jsonwebtoken.JwtException;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;

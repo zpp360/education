@@ -6,7 +6,9 @@ import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.core.shiro.ShiroUser;
+import cn.stylefeng.guns.core.util.HtmlUtil;
 import cn.stylefeng.guns.modular.shuheng.entity.College;
+import cn.stylefeng.guns.modular.shuheng.entity.School;
 import cn.stylefeng.guns.modular.shuheng.service.CollegeService;
 import cn.stylefeng.guns.modular.shuheng.warpper.CollegeWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -14,11 +16,14 @@ import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Date;
 
@@ -27,7 +32,7 @@ import cn.stylefeng.roses.core.base.controller.BaseController;
 
 /**
  * <p>
- *  前端控制器
+ *  学院/系 前端控制器
  * </p>
  *
  * @author zhengpp
@@ -118,5 +123,26 @@ public class CollegeController extends BaseController {
       }
       this.collegeService.removeById(collegeId);
       return SUCCESS_TIP;
+   }
+
+   /**
+    * 学院下拉框
+    * @return
+    */
+   @RequestMapping(value = "/selectCollege")
+   @ResponseBody
+   public Object selectCollege(@RequestParam(value = "schoolId",required = false)String schoolId){
+      ShiroUser user = ShiroKit.getUser();
+      QueryWrapper<College> queryWrapper = new QueryWrapper<>();
+      queryWrapper.select("college_id","college_name");
+      if(ShiroKit.isAdmin()){
+         queryWrapper.eq("school_id",schoolId);
+      }
+      if(ShiroKit.isSchoolAdmin()){
+         queryWrapper.eq("school_id",user.getSchoolId());
+      }
+      List<Map<String,Object>> list = collegeService.listMaps(queryWrapper);
+      String options = HtmlUtil.listMap2HtmlOptions(list,"college_id","college_name");
+      return options;
    }
 }

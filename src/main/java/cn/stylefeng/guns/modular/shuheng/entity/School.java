@@ -42,6 +42,12 @@ public class School implements Serializable {
     private String schoolAddres;
 
     /**
+     * 学年
+     */
+    @TableField(value = "school_year")
+    private Integer schoolYear;
+
+    /**
      * 学校简介
      */
     @TableField("school_desc")
@@ -156,6 +162,14 @@ public class School implements Serializable {
 
     public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public Integer getSchoolYear() {
+        return schoolYear;
+    }
+
+    public void setSchoolYear(Integer schoolYear) {
+        this.schoolYear = schoolYear;
     }
 
     @Override

@@ -22,8 +22,10 @@ import cn.stylefeng.guns.core.common.constant.cache.CacheKey;
 import cn.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import cn.stylefeng.guns.core.common.constant.state.MenuStatus;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.modular.shuheng.entity.College;
 import cn.stylefeng.guns.modular.shuheng.entity.Column;
 import cn.stylefeng.guns.modular.shuheng.entity.School;
+import cn.stylefeng.guns.modular.shuheng.mapper.CollegeMapper;
 import cn.stylefeng.guns.modular.shuheng.mapper.ColumnMapper;
 import cn.stylefeng.guns.modular.shuheng.mapper.SchoolMapper;
 import cn.stylefeng.guns.modular.system.entity.*;
@@ -59,6 +61,8 @@ public class ConstantFactory implements IConstantFactory {
 
     private SchoolMapper schoolMapper = SpringContextHolder.getBean(SchoolMapper.class);
     private ColumnMapper columnMapper = SpringContextHolder.getBean(ColumnMapper.class);
+
+    private CollegeMapper collegeMapper = SpringContextHolder.getBean(CollegeMapper.class);
 
 
     public static IConstantFactory me() {
@@ -363,6 +367,19 @@ public class ConstantFactory implements IConstantFactory {
                 return "";
             }
             return column.getColumnName();
+        }
+    }
+
+    @Override
+    public Object getCollegeName(Long collegeId) {
+        if(collegeId == null){
+            return "";
+        }else{
+            College college = collegeMapper.selectById(collegeId);
+            if(college==null || ToolUtil.isEmpty(college.getCollegeName())){
+                return "";
+            }
+            return college.getCollegeName();
         }
     }
 

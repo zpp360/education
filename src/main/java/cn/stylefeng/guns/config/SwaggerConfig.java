@@ -52,11 +52,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Guns Doc")
-                .description("Guns Api文档")
-                .termsOfServiceUrl("https://gitee.com/stylefeng/guns")
-                .contact(new Contact("stylefeng", "https://gitee.com/stylefeng/guns", ""))
-                .version("2.0")
+                .title("智慧校园系统开发接口")
+                .description("Rest Api文档")
+                .termsOfServiceUrl("http://www.shuhengyl.com")
+                .contact(new Contact("zhengpp", "www.shuhengyl.com", ""))
+                .version("1.0")
                 .build();
     }
 

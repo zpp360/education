@@ -15,28 +15,38 @@
 
          <input type="hidden" name="majorId"/>
          <div class="layui-form-item">
-             <label class="layui-form-label">学校<span style="color: red;">*</span></label>
-             <div class="layui-input-block">
-                 <input id="schoolId" name="schoolId" maxlength="30" placeholder="请输入学校" type="text" class="layui-input"
-                        lay-verify="required" required/>
-             </div>
+            <label class="layui-form-label">专业名称<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <input id="majorName" name="majorName" maxlength="30" placeholder="请输入专业名称" type="text" class="layui-input"
+                       lay-verify="required" required/>
+            </div>
+         </div>
+         @if(shiro.hasRole("administrator")){
+         <div class="layui-form-item">
+            <label class="layui-form-label">学校<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <select id="schoolId" name="schoolId" lay-verify="" lay-filter="schoolId">
+                    <option value="">请选择学校</option>
+                </select>
+            </div>
+         </div>
+         @}
+         <div class="layui-form-item">
+            <label class="layui-form-label">学院<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <select id="collegeId" name="collegeId" lay-verify="">
+                    <option value="">请选择学院</option>
+                </select>
+            </div>
          </div>
          <div class="layui-form-item">
-             <label class="layui-form-label">学院id<span style="color: red;">*</span></label>
-             <div class="layui-input-block">
-                 <input id="collegeId" name="collegeId" maxlength="30" placeholder="请输入学院id" type="text" class="layui-input"
-                        lay-verify="required" required/>
-             </div>
+            <label class="layui-form-label">排序<span style="color: red;">*</span></label>
+            <div class="layui-input-block">
+                <input id="sort" name="sort" placeholder="请输入排序号码" style="width:130px" maxlength="3" type="number" class="layui-input" lay-verify="sort">
+            </div>
          </div>
          <div class="layui-form-item">
-             <label class="layui-form-label">专业名称<span style="color: red;">*</span></label>
-             <div class="layui-input-block">
-                 <input id="majorName" name="majorName" maxlength="30" placeholder="请输入专业名称" type="text" class="layui-input"
-                        lay-verify="required" required/>
-             </div>
-         </div>
-         <div class="layui-form-item">
-             <label class="layui-form-label">图片<span style="color: red;">*</span></label>
+             <label class="layui-form-label">图片</label>
              <div class="layui-upload">
                  <button type="button" class="layui-btn" id="uploadImg">上传图片</button>
                  <div class="layui-upload-list">
@@ -47,16 +57,9 @@
              <input type="hidden" id="majorImg" name="majorImg" placeholder="" type="text" class="layui-input" lay-verify="" />
          </div>
          <div class="layui-form-item">
-             <label class="layui-form-label">描述<span style="color: red;">*</span></label>
+             <label class="layui-form-label">描述</label>
              <div class="layui-input-block">
-                 <input id="majorDesc" name="majorDesc" maxlength="30" placeholder="请输入描述" type="text" class="layui-input"
-                        lay-verify="required" required/>
-             </div>
-         </div>
-         <div class="layui-form-item">
-             <label class="layui-form-label">排序<span style="color: red;">*</span></label>
-             <div class="layui-input-block">
-                 <input id="sort" name="sort" placeholder="请输入排序号码" style="width:130px" maxlength="3" type="number" class="layui-input" lay-verify="sort">
+                 <textarea id="majorDesc" name="majorDesc" maxlength="500" placeholder="请输入专业简介" type="text" class="layui-textarea"></textarea>
              </div>
          </div>
 

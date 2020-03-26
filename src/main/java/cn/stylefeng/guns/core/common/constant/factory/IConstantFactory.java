@@ -30,7 +30,6 @@ public interface IConstantFactory {
 
     /**
      * 根据用户id获取用户名称
-     *
      * @author stylefeng
      * @Date 2017/5/9 23:41
      */
@@ -153,4 +152,11 @@ public interface IConstantFactory {
      * @return
      */
     Object getColumnNameById(Long columnId);
+
+    /**
+     * 根据id获取专业名称
+     * @param collegeId
+     * @return
+     */
+    Object getCollegeName(Long collegeId);
 }

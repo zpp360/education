@@ -1,9 +1,7 @@
 package cn.stylefeng.guns.modular.shuheng.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -58,19 +56,19 @@ public class Major implements Serializable {
 
     private Integer sort;
 
-    @TableField("del_flag")
+    @TableField(value = "del_flag",fill = FieldFill.INSERT)
     private String delFlag;
 
-    @TableField("create_user")
+    @TableField(value = "create_user",fill = FieldFill.INSERT)
     private Long createUser;
 
-    @TableField("create_time")
+    @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Date createTime;
 
-    @TableField("update_user")
+    @TableField(value = "update_user",fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
-    @TableField("update_time")
+    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
     public Long getMajorId() {

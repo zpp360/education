@@ -8,6 +8,7 @@ import cn.stylefeng.guns.core.shiro.ShiroUser;
 import cn.stylefeng.guns.core.util.HtmlUtil;
 import cn.stylefeng.guns.modular.shuheng.entity.School;
 import cn.stylefeng.guns.modular.shuheng.service.SchoolService;
+import cn.stylefeng.guns.modular.shuheng.warpper.SchoolWrapper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
@@ -28,7 +29,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- *  前端控制器
+ *  分校 前端控制器
  * </p>
  *
  * @author zhengpp
@@ -59,6 +60,7 @@ public class SchoolController extends BaseController {
          Long schoolId = shiroUser.getSchoolId();
          page = schoolService.listSchool(schoolName,schoolId);
       }
+      page = new SchoolWrapper(page).wrap();
       return LayuiPageFactory.createPageInfo(page);
    }
 
@@ -146,4 +148,5 @@ public class SchoolController extends BaseController {
       String options = HtmlUtil.listMap2HtmlOptions(list,"school_id","school_name");
       return options;
    }
+
 }

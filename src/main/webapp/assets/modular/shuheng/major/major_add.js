@@ -39,10 +39,14 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
     });
 
     //查询所有学校
-    var ajax = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
+    var ajaxSchool = new $ax(Feng.ctxPath + "/school/selectSchool", function (data) {
         $("#schoolId").append(data)
     })
-    ajax.start();
+    var ajaxCollege = new $ax(Feng.ctxPath + "/college/selectCollege", function (data) {
+        $("#collegeId").append(data)
+    })
+    ajaxSchool.start();
+    ajaxCollege.start();
     //重新渲染select
     form.render('select');
 
@@ -70,4 +74,19 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax','upload'], function () {
         ajax.set(data.field);
         ajax.start();
     });
+
+    //学校下拉改变事件
+    form.on('select(schoolId)',function (data) {
+        if(data.value){
+            var ajax = new $ax(Feng.ctxPath + "/college/selectCollege", function (data) {
+                $("#collegeId").children().remove();
+                $("#collegeId").append('<option value="">请选择学院</option>');
+                $("#collegeId").append(data);
+            })
+            ajax.set("schoolId",data.value);
+            ajax.start();
+            //重新渲染select
+            form.render('select');
+        }
+    })
 });
